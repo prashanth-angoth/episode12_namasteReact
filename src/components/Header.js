@@ -16,22 +16,22 @@ const Header=()=>{
 
   const [logButton,setLogButton] = useState("log in");
     return (
-      <div className="header" style={styleCard}>
+      <div className="flex justify-between shadow-lg sm:bg-pink-200 lg:bg-green-400" style={styleCard}>
         <div>
-        <img className="logo" src={LOGO_URL}/>
+        <img className="w-14" src={LOGO_URL}/>
         </div>
-        <div className="nav-items">
-          <ul>
+        <div>
+          <ul className="flex p-4 m-4">
             {/* here Link will give us the provision to programmatical navigation.
             it'll render only the component. if we use anchor tag for programmatical navigation that'll load the entire page
             which is not recommended
               */}
               <li>online status: {isOnline ? <span role="img" aria-label="online">🟢</span> : <span role="img" aria-label="offline">🔴</span>}</li>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/contact">cart</Link></li>
-            <li><Link to="/grocery">Grocery</Link></li>
-            <li><button onClick={()=>{
+            <li className="px-4"><Link to="/">Home</Link></li>
+            <li className="px-4"><Link to="/about">About Us</Link></li>
+            <li className="px-4"><Link to="/contact">cart</Link></li>
+            <li className="px-4"><Link to="/grocery">Grocery</Link></li>
+            <li className="px-4"><button onClick={()=>{
               if(logButton=="log in"){
                 setLogButton("log out")
               }

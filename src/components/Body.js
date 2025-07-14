@@ -54,10 +54,10 @@ if(isOnline === false){
             console.log("BUTTON CLICKED")
           }}
            */}
-        <input type="text" value={searchInput} onChange={(e)=>{
+        <input type="text" className="border border-solid border-black rounded" value={searchInput} onChange={(e)=>{
           setSearchInput(e.target.value)
         }}/>
-        <button onClick={
+        <button className="px-2 m-2 bg-green-400 rounded" onClick={
           ()=>{
             const filteredRes = listOfRestaurant.filter((resFil)=>{
               if(resFil?.info?.name?.toLowerCase().includes(searchInput.toLowerCase())){
@@ -68,7 +68,7 @@ if(isOnline === false){
           }
         }>Search</button>
         <button
-          className="filter-btn"
+          className="px-5 ml-10 bg-green-400 rounded"
           onClick={() => {
             debugger;
             // const list =[]
@@ -86,7 +86,7 @@ if(isOnline === false){
           Top Rated Restaurants
         </button>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap justify-between m-1 rounded-lg">
         {/* one way of passing data using props */}
         {/* <RestaurantCard resName="Meghana Restaurant" cuisine="indian, continental, chinese"/> */}
         {/* you can use map or forEach to render all the restaurants with single component making it dynamic */}
