@@ -1,16 +1,22 @@
-here in this episode we've worked on singe responsibility principle
-if you have function/class/identity that should have single reponsibility
-modularity : 
-means that you breakdown your code into different small modules so that your code becomes more maintainable, testable and readable.
+here in this episode we have learnt regarding the tailwind css framework.
+to install the tailwindcss we need two packages.
+    1. tailwindCss, 2.post css 
 
-=Custom hooks:
---Hooks are utility functions/special Js functions which are given by react
---creating a custom hook is not a mandatory thing  but it is a good thing because that will make your code more modular and reusable and testable.
---Always initiate a custom hook name with "use". EX: useRestauranntMenu
---it is not mandatory to use the "use" keyword  or not necessary to use the capital letter for component name, if we don't follow it also the code works but, it is the induxtry standard that evevry developer is following to make the code more readable.
+postcss is a tool for transforming css with javascript
+tainwind uses postCss in the background to apply the styling.
+ once you install the packages and do the npm tailwind init, tailwind.config.js file gets creates in the application.
+  after that, we have to create the .postcssrc file in your root project.
 
-=chunking / lazy loading / dynamic building:
---for an industry level app, we'll have multiple features. if ewe build the application into one file then the app takes time to load and the size of the application become big and hence performance declines
--- to avoid this situation we use lazy loading concept here as we load the features on demand to achive this we use "Lazy()"
-when you click on the feature module react will takes time to load that, so react renderer cancels it, to avoid this we use suspence component.
-to see the impact of suspense at developer mode we can change the network to no throttling to slow networs.
+for the parcel bundler we have to follow the tailwind css installation from documentation. (for me v4.1 was not working for me so I used the older version and it worked for me i.e version3)
+
+parcell will use postcssrc to understand the tailwind, and also it is a way to understand what is written in tailwind.
+
+follow all the installation steps suggested by doc.
+
+tailwind css gives you classnames automaticallyfor every css that you would want to write into your app.
+
+there is one extension tool in vs code which help us to easy to find the class names with auto suf=ggestions, so install it and download it.
+
+in tailwind css if we don't have paricular value suggestion for "px", we can proide those values with the help of sqaure brackets[]. ex : m-[250px];
+
+it is a very light framework .
