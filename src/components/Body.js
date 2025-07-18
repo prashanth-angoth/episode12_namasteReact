@@ -1,11 +1,13 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard,{RestaurantCardHOC} from "./RestaurantCard";
 // import resList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import userContext from "../utils/userContext"; // importing userContext to provide user data to the entire application
 
 const Body = () => {
+  const PromotedCard = RestaurantCardHOC(RestaurantCard);
   const [searchInput,setSearchInput] = useState("")
   // here in the below line we are creating a local state variable here listOfRestaurant variable will be the name
   // and the setListOfRestaurant will be the function which will help us to update the listOfRestaurant state variable
@@ -34,11 +36,11 @@ const isOnline = useOnlineStatus();
 if(isOnline === false){
   return <h1>Looks like you are offline, please check your internet connection</h1>
 }
-
+  const { loggedInUser, setUserName } = useContext(userContext);
 
   // this concept will known as conditional rendering. here till the data loads we are showing shimmering effect on ui.
   // we can use ternary opearator also to render this
-  if(listOfRestaurant.length===0){
+  if(listOfRestaurant?.length===0){
     // this type of Loading won't give better user experience to provide better user experiences most of the industries 
     // are using the shimmer ui which are the component like skeleton structure which don't have any of the data just the empty cards.
     // code is written in shimmer component 
@@ -86,6 +88,13 @@ if(isOnline === false){
           Top Rated Restaurants
         </button>
       </div>
+      <div className="flex justify-center">
+        <input
+          className="border border-solid border-black rounded"
+          value={loggedInUser}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+      </div>
       <div className="flex flex-wrap justify-between m-1 rounded-lg">
         {/* one way of passing data using props */}
         {/* <RestaurantCard resName="Meghana Restaurant" cuisine="indian, continental, chinese"/> */}
@@ -93,21 +102,9 @@ if(isOnline === false){
         {filteredRestaurants.map((rest, index) => (
           // key is a unique parameter which should be unique for every card that is rendering
           // best practice is to use keys always, if keys are not available atleast use index
-          <Link key={rest.info.id} to={"/restaurants/"+rest.info.id}><RestaurantCard resobj={rest.info} /></Link>
+          console.log(rest.info,"======================="),
+          <Link key={rest.info.id} to={"/restaurants/"+rest.info.id}>{rest.info.parentId!=="721" ? <RestaurantCard resobj={rest.info} /> :<PromotedCard resobj={rest.info}/>}</Link>
         ))}
-        {/* {
-          resList.forEach((rest)=>
-            <RestaurantCard resobj ={rest}/>
-          )
-        } */}
-        {/* <RestaurantCard resobj ={resList[0]}/>
-        <RestaurantCard resobj ={resList[1]}/>
-        <RestaurantCard resobj ={resList[2]}/>
-        <RestaurantCard resobj ={resList[3]}/>
-        <RestaurantCard resobj ={resList[4]}/>
-        <RestaurantCard resobj ={resList[5]}/>
-        <RestaurantCard resobj ={resList[6]}/> */}
-        {/* <RestaurantCard resName="KFC kothapet" cuisine="chicken nuggets,burgers"/> */}
       </div>
     </div>
   );

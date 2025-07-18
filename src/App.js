@@ -1,5 +1,6 @@
 
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
+import { useState, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header"; // always import components when we are using structured files
 import Body from "./components/Body"; 
@@ -7,6 +8,8 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Shimmer from "./components/Shimmer"; // this is a loading component which will be shown while the data is being fetched
+import UserContext from "./utils/userContext"; // importing userContext to provide user data to the entire application
+import CategoriesInMenu from "./components/CategoriesInMenu"; // Importing CategoriesInMenu component
 /*initial low level design of swiggy clone apps
   Header
    -logo
@@ -32,11 +35,27 @@ import RestaurantMenu from "./components/RestaurantMenu";
 // REMOVE direct import of Grocery for lazy loading to work
 
 const Applayout=()=>{
+  const [userName,setUserName] = useState();
+  useEffect(() => {
+    // Simulating an API call to fetch user data
+   const data = {
+    name:"prashanth Angoth"
+   }
+   setUserName(data.name);
+  }, []);
   return (
+    // UserContext.Provider is used to provide the user context to the entire application
+    <UserContext.Provider value={{loggedInUser: userName,setUserName}}>
     <div className="app">
       <Header></Header>
-      <Outlet/>
+      {/* I want pass the context data to categoriesInMenu.js component
+      <UserContext.Provider value={{loggedInUser: "Nandu Angoth",setUserName}}> 
+        <Outlet/>
+      </UserContext.Provider> */}
+      <Outlet />
+      
     </div>
+    </UserContext.Provider>
   )
 }
 // lazy loading is a technique to load the components only when they are required

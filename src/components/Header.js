@@ -3,15 +3,20 @@
 //  you're using for component
 
 import { LOGO_URL } from "../utils/constants"
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus"; // custom hook to show online status
+import userContext from "../utils/userContext";
 // if we want to add inline styling in jsx we have to create object like this and
 // use in the particular div or span
 const styleCard={
     backgroundColor:"orange"
   }
 const Header=()=>{
+  // useContext is a react hook which will help us to get the data from the context
+  // here we are getting the data from userContext
+const data = useContext(userContext)
+
   const isOnline = useOnlineStatus(); // using custom hook to get online status
 
   const [logButton,setLogButton] = useState("log in");
@@ -40,6 +45,7 @@ const Header=()=>{
               }
               
             }}>{logButton}</button></li>
+            <li className="px-4"><Link to="/grocery">{data.loggedInUser}</Link></li>
           </ul>
         </div>
         </div>
