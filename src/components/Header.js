@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus"; // custom hook to show online status
 import userContext from "../utils/userContext";
+import { useSelector } from "react-redux";
 // if we want to add inline styling in jsx we have to create object like this and
 // use in the particular div or span
 const styleCard={
@@ -15,7 +16,9 @@ const styleCard={
 const Header=()=>{
   // useContext is a react hook which will help us to get the data from the context
   // here we are getting the data from userContext
-const data = useContext(userContext)
+const data = useContext(userContext);
+const cartItems = useSelector((store) => store.cart.items); // using useSelector to get cart items from the Redux store
+// useSelector is a hook provided by react-redux to access the state from the store
 
   const isOnline = useOnlineStatus(); // using custom hook to get online status
 
@@ -34,7 +37,7 @@ const data = useContext(userContext)
               <li>online status: {isOnline ? <span role="img" aria-label="online">🟢</span> : <span role="img" aria-label="offline">🔴</span>}</li>
             <li className="px-4"><Link to="/">Home</Link></li>
             <li className="px-4"><Link to="/about">About Us</Link></li>
-            <li className="px-4"><Link to="/contact">cart</Link></li>
+            <li className="px-4"><Link to="/cart">cart<sup>{cartItems.length}</sup></Link></li>
             <li className="px-4"><Link to="/grocery">Grocery</Link></li>
             <li className="px-4"><button onClick={()=>{
               if(logButton=="log in"){

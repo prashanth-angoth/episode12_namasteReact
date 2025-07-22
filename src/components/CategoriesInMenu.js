@@ -10,9 +10,16 @@ import CardMedia from "@mui/material/CardMedia";
 import { CDN_URL } from "../utils/constants"; // Assuming CDN_URL is defined in constants.js
 import { useContext } from "react";
 import userContext from "../utils/userContext"; // Importing userContext to access user data
+import { addItem } from "../utils/cartSlice";
+import { useDispatch } from "react-redux"; // Importing useDispatch from react-redux to dispatch actions
 
 const CategoriesInMenu = ({category ,expanded, onChange}) => {
     const data =useContext(userContext); // Using useContext to access user context data
+  const dispatch = useDispatch(); // Importing useDispatch from react-redux to dispatch actions
+    const handleCartItems = (item) => {
+      dispatch(addItem(item)); // Dispatching addItem action to add the item to the cart
+      // dispatch an action as soon as the button is clicked
+    }
   return (
     <div className="flex justify-center">
       <Accordion
@@ -56,6 +63,9 @@ const CategoriesInMenu = ({category ,expanded, onChange}) => {
                     sx={{ width: 140, objectFit: "cover" }}
                     image={CDN_URL+item?.card?.info?.imageId}
                   />
+                  <button className="bg-blue-500 absolute text-white ml-[575px] mb-[105px] px-4 py-2 rounded hover:bg-blue-600" onClick={()=>handleCartItems(item)}>
+                  Add +
+                </button>
                 </div>
               </Card>
 

@@ -10,6 +10,9 @@ import Error from "./components/Error";
 import Shimmer from "./components/Shimmer"; // this is a loading component which will be shown while the data is being fetched
 import UserContext from "./utils/userContext"; // importing userContext to provide user data to the entire application
 import CategoriesInMenu from "./components/CategoriesInMenu"; // Importing CategoriesInMenu component
+import Cart from "./components/Cart"; // Importing Cart component
+
+import { Provider } from "react-redux"; // importing provider to provide the store to the entire application
 /*initial low level design of swiggy clone apps
   Header
    -logo
@@ -32,6 +35,7 @@ import CategoriesInMenu from "./components/CategoriesInMenu"; // Importing Categ
 // here we also import router which help us to load the components dynamically 
 import { createBrowserRouter,RouterProvider,Outlet } from "react-router";
 import RestaurantMenu from "./components/RestaurantMenu";
+import appStore from "./utils/appStore";
 // REMOVE direct import of Grocery for lazy loading to work
 
 const Applayout=()=>{
@@ -44,6 +48,9 @@ const Applayout=()=>{
    setUserName(data.name);
   }, []);
   return (
+  // Provider is used to provide the store to the entire application
+  // this will help us to access the store in any component of the application
+    <Provider store={appStore} >
     // UserContext.Provider is used to provide the user context to the entire application
     <UserContext.Provider value={{loggedInUser: userName,setUserName}}>
     <div className="app">
@@ -56,6 +63,7 @@ const Applayout=()=>{
       
     </div>
     </UserContext.Provider>
+    </Provider>
   )
 }
 // lazy loading is a technique to load the components only when they are required
@@ -72,6 +80,7 @@ const appRouter = createBrowserRouter([
       {path:"/",element:<Body />},
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
+      {path:"/cart",element:<Cart />},
       { path: "/restaurants/:resId", element: <RestaurantMenu />  }, // here in this path ":" it indicates that resId is a dynamic value 
       { path: "/grocery", element: <Suspense fallback={<Shimmer />}><Grocery /></Suspense> } //purpose of Suspense is to show the fallback component while the Grocery component is being loaded
     ], 
